@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CV Analizer{% endblock %}</title>
+    <!-- Aquí puedes incluir tus archivos CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <!-- Aquí puedes incluir tu barra de navegación -->
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'registro_usuario' %}">Registro</a></li>
+                <li><a href="{% url 'login_usuario' %}">Login</a></li>
+                <li><a href="{% url 'logout' %}">logout</a></li>
+                {% if user.is_authenticated %}
+                    <li>Usuario: {{ user.username }}</li>
+                {% endif %}
+                <!-- Agrega más enlaces según sea necesario -->
+            </ul>
+        </nav>
+            
+    </header>
+
+    <main>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}
+        <!-- El contenido específico de cada página irá aquí -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Aquí puedes incluir el pie de página -->
+        <p>&copy; 2024 CV Analizer. Todos los derechos reservados.</p>
+    </footer>
+
+    
+    </body>
+</html>
